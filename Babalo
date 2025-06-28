@@ -92,7 +92,7 @@ bg2.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
 local title2 = Instance.new("TextLabel", bg2)
 title2.Size = UDim2.new(1, 0, 0.1, 0)
 title2.Position = UDim2.new(0, 0, 0.35, 0)
-title2.Text = "NEXUS-HUB SCRIPT LOADIN☘️"
+title2.Text = "NEXUS-HUB SCRIPT LOADING☘️"
 title2.TextColor3 = Color3.fromRGB(170, 0, 255)
 title2.BackgroundTransparency = 1
 title2.Font = Enum.Font.GothamBold
@@ -117,7 +117,7 @@ loadText.BackgroundTransparency = 1
 loadText.TextColor3 = Color3.new(1, 1, 1)
 loadText.Font = Enum.Font.GothamBold
 loadText.TextScaled = true
-loadText.Text = "SCRIPT IS LOADING… 60s ☘️"
+loadText.Text = "SCRIPT IS LOADING… 59s ☘️"
 loadText.ZIndex = 2
 
 local warning = Instance.new("TextLabel", bg2)
