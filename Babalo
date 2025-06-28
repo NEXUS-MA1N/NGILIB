@@ -170,7 +170,7 @@ end)
 -- ACTIVATE SCRIPT BUTTON CLICK
 actBtn.MouseButton1Click:Connect(function()
 	local success, err = pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/NEXUS-MA1N/Iniyot/refs/heads/main/Nimadam"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/MA1N-HUB/IDK/refs/heads/main/IDK"))()
 	end)
 	if not success then warn(err) end
 
